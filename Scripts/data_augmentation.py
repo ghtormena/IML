@@ -13,7 +13,7 @@ transform = A.Compose([
     A.ImageCompression(quality_range=(85, 100), p=0.4),
     A.Blur(blur_limit=3, p=0.3),
     A.GaussNoise(std_range=(0.1, 0.5), p=0.3),
-    # A.HorizontalFlip(p=0.5),
+    A.HorizontalFlip(p=0.5),
     # A.Sharpen(alpha=(0.2, 0.5), lightness=(0.5, 1.0), p=0.4),
 ])
 
