@@ -205,3 +205,11 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+Scripts/Feminino/
+Scripts/Masculino/
+Scripts/dataset_yolo/
+Scripts/data_test/
+Scripts/dataset_anonimizado/
+Scripts/dataset_anonimizado_padded/
+Scripts/yolo11s-cls.pt

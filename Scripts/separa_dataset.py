@@ -4,10 +4,8 @@ import random
 
 # Pastas originais (classes)
 input_dirs = [
-    "Cranio Feminino",
-    "Cranio Masculino",
-    "Pelve Feminina",
-    "Pelve Masculina",
+    "dataset_anonimizado_padded/Feminino",
+    "dataset_anonimizado_padded/Masculino"
 ]
 
 # Pasta de saída no formato YOLO classification
@@ -18,9 +16,12 @@ splits = ["train", "val", "test"]
 if os.path.exists(out_base):
     shutil.rmtree(out_base)
 
+# --- MODIFICAÇÃO AQUI ---
+# Cria a estrutura de pastas de destino usando apenas o nome da classe
 for split in splits:
-    for cls in input_dirs:
-        os.makedirs(os.path.join(out_base, split, cls), exist_ok=True)
+    for cls_path in input_dirs:
+        class_name = os.path.basename(cls_path) # NOVA LINHA: Extrai "Feminino" do caminho completo
+        os.makedirs(os.path.join(out_base, split, class_name), exist_ok=True) # LINHA MODIFICADA
 
 # Proporções de divisão
 train_ratio = 0.75
@@ -30,8 +31,10 @@ test_ratio = 0.15
 # Extensões válidas
 valid_ext = (".jpg", ".jpeg", ".png", ".bmp", ".tiff")
 
-for cls in input_dirs:
-    files = [f for f in os.listdir(cls) if f.lower().endswith(valid_ext)]
+for cls_path in input_dirs: # LINHA MODIFICADA (variável renomeada para clareza)
+    class_name = os.path.basename(cls_path) # NOVA LINHA: Extrai o nome da classe novamente
+
+    files = [f for f in os.listdir(cls_path) if f.lower().endswith(valid_ext)]
     random.shuffle(files)
 
     n = len(files)
@@ -44,14 +47,15 @@ for cls in input_dirs:
     val_files = files[n_train:n_train + n_val]
     test_files = files[n_train + n_val:]
 
-    # Copiar para destino
+    # --- MODIFICAÇÃO AQUI ---
+    # Copiar para destino usando apenas o nome da classe
     for fname in train_files:
-        shutil.copy(os.path.join(cls, fname), os.path.join(out_base, "train", cls, fname))
+        shutil.copy(os.path.join(cls_path, fname), os.path.join(out_base, "train", class_name, fname))
     for fname in val_files:
-        shutil.copy(os.path.join(cls, fname), os.path.join(out_base, "val", cls, fname))
+        shutil.copy(os.path.join(cls_path, fname), os.path.join(out_base, "val", class_name, fname))
     for fname in test_files:
-        shutil.copy(os.path.join(cls, fname), os.path.join(out_base, "test", cls, fname))
+        shutil.copy(os.path.join(cls_path, fname), os.path.join(out_base, "test", class_name, fname))
 
-    print(f"✅ Classe '{cls}': {n_train} treino, {n_val} validação, {n_test} teste")
+    print(f"✅ Classe '{class_name}': {n_train} treino, {n_val} validação, {n_test} teste") # LINHA MODIFICADA
 
 print("\nEstrutura pronta em:", out_base)
