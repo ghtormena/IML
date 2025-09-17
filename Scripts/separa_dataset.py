@@ -4,8 +4,10 @@ import random
 
 # Pastas originais (classes)
 input_dirs = [
-    "dataset_anonimizado_padded/Feminino",
-    "dataset_anonimizado_padded/Masculino"
+    "Cranio Feminino",
+    "Cranio Masculino",
+    "Pelve Feminina",
+    "Pelve Masculina"
 ]
 
 # Pasta de saída no formato YOLO classification

@@ -1,102 +1,100 @@
-import cv2
 import os
 import shutil
-from pathlib import Path
+import re
+from PIL import Image, ImageDraw, ImageOps
 
-# --- CONFIGURAÇÕES ---
-# 1. Liste os diretórios com as imagens originais que você quer processar.
-INPUT_DIRS = [
-    "Feminino",
-    "Masculino"
-]
+def limpar_pasta(pasta):
+    if os.path.exists(pasta):
+        shutil.rmtree(pasta)
 
-# 2. Defina o nome da pasta de saída para as imagens modificadas.
-OUTPUT_DIR = "dataset_anonimizado"
-
-# 3. Defina o tamanho do quadrado preto a ser aplicado.
-SQUARE_SIZE = 50
-
-# --- FUNÇÃO PRINCIPAL DE PROCESSAMENTO ---
-
-def apply_black_square(image_path: str, size: int) -> 'numpy.ndarray | None':
+def processar_e_salvar(src_path, dest_folder, prefix, espelhar=False, box_size=40):
     """
-    Lê uma imagem e aplica um quadrado preto no canto superior direito.
-
-    Args:
-        image_path (str): Caminho para a imagem de entrada.
-        size (int): O lado do quadrado preto em pixels.
-
-    Returns:
-        numpy.ndarray | None: A imagem modificada ou None se ocorrer um erro.
+    Abre src_path, converte para RGB, desenha um quadrado preto 40x40
+    no canto superior direito, salva em dest_folder com nome prefix_originalfilename,
+    e então salva também a versão espelhada (da imagem com quadrado) com sufixo _espelhado.
     """
     try:
-        # Lê a imagem
-        img = cv2.imread(image_path)
-        if img is None:
-            print(f"  - Aviso: Não foi possível ler a imagem {image_path}")
-            return None
-
-        h, w, _ = img.shape
-
-        # Define as coordenadas do canto superior direito
-        # Garante que o quadrado não saia dos limites de imagens pequenas
-        y_start = 0
-        y_end = min(size, h)
-        x_start = max(0, w - size)
-        x_end = w
-
-        # Usa a indexação do NumPy para selecionar a região e torná-la preta
-        # A cor (0, 0, 0) é preta no formato BGR do OpenCV
-        img[y_start:y_end, x_start:x_end] = (0, 0, 0)
-
-        return img
+        img = Image.open(src_path).convert("RGB")
     except Exception as e:
-        print(f"  - Erro ao processar {image_path}: {e}")
-        return None
+        print(f"⚠️  Erro ao abrir {src_path}: {e}")
+        return
 
-# --- LÓGICA PRINCIPAL DO SCRIPT ---
+    largura, altura = img.size
 
-def main():
-    """
-    Executa o processo de aplicar o quadrado preto para todos os diretórios.
-    """
-    output_path = Path(OUTPUT_DIR)
+    # desenha quadrado preto no canto superior direito
+    img_with_box = img.copy()
+    draw = ImageDraw.Draw(img_with_box)
+    left = max(0, largura - box_size)
+    top = 0
+    right = largura
+    bottom = min(box_size, altura)
+    draw.rectangle([(left, top), (right, bottom)], fill=(0, 0, 0))
+
+    # montar nomes
+    arquivo = os.path.basename(src_path)
+    nome_base, ext = os.path.splitext(arquivo)
+    nome_dest = f"{prefix}_{arquivo}"              # ex: pasta_a.jpg -> 123M_a.jpg
+    caminho_dest = os.path.join(dest_folder, nome_dest)
+
+    # salva a versão com quadrado
+    try:
+        img_with_box.save(caminho_dest)
+    except Exception as e:
+        print(f"⚠️  Erro ao salvar {caminho_dest}: {e}")
+        return
+
+def organizar_amostras_com_quadrado(base_path):
+    # Destinos (apenas estas 4 pastas serão criadas)
     
-    # Limpa o diretório de saída se ele já existir
-    if output_path.exists():
-        print(f"⚠️  Diretório de saída '{output_path}' já existe. Removendo...")
-        shutil.rmtree(output_path)
-    
-    print(f"🚀 Iniciando processo para remover metadados visuais...")
+    os.makedirs(os.path.join(base_path, "dataset_anonimizado"))
+    data_path = os.path.join(base_path, "dataset_anonimizado")
 
-    for dir_path_str in INPUT_DIRS:
-        input_path = Path(dir_path_str)
-        if not input_path.is_dir():
-            print(f"  - Aviso: Diretório de entrada '{input_path}' não encontrado. Pulando.")
+    feminino_out = os.path.join(data_path, "Feminino")
+    masculino_out = os.path.join(data_path, "Masculino")
+
+    destinos = [feminino_out, masculino_out]
+
+    # Remove/limpa e recria somente as quatro pastas de destino
+    for d in destinos:
+        limpar_pasta(d)
+        os.makedirs(d, exist_ok=True)
+
+    # Fonte: Amostras 2D/Masculino e Amostras 2D/Feminino
+    amostras_root = os.path.join(base_path, "Amostras 2D")
+    if not os.path.isdir(amostras_root):
+        print(f"⚠️  Pasta '{amostras_root}' não encontrada. Abortando.")
+        return
+
+    padrao = re.compile(r".*[MF]$")  # subpastas terminando em M ou F
+    counts = {feminino_out:0, masculino_out:0}
+
+    for genero in ["Masculino", "Feminino"]:
+        genero_path = os.path.join(amostras_root, genero)
+        if not os.path.isdir(genero_path):
             continue
-            
-        # Cria a estrutura de pastas correspondente no diretório de saída
-        output_class_dir = output_path / input_path.name
-        output_class_dir.mkdir(parents=True, exist_ok=True)
-        
-        print(f"\n➡️  Processando diretório: '{input_path.name}'")
-        
-        image_files = list(input_path.glob('*'))
-        count = 0
-        for image_file in image_files:
-            if image_file.suffix.lower() in ['.png', '.jpg', '.jpeg', '.bmp', '.tiff']:
-                modified_image = apply_black_square(str(image_file), SQUARE_SIZE)
-                
-                if modified_image is not None:
-                    # Define o caminho de salvamento e salva a imagem modificada
-                    save_path = output_class_dir / image_file.name
-                    cv2.imwrite(str(save_path), modified_image)
-                    count += 1
-        
-        print(f"   ✅ Concluído: {count} imagens processadas e salvas em '{output_class_dir}'")
 
-    print(f"\n🎉 Processo finalizado com sucesso!")
-    print(f"   As imagens com o canto superior direito coberto foram salvas em '{OUTPUT_DIR}'.")
+        for pasta in os.listdir(genero_path):
+            pasta_path = os.path.join(genero_path, pasta)
+            if not os.path.isdir(pasta_path) or not padrao.match(pasta):
+                continue
+
+            # prefix usado no nome dos arquivos de destino para evitar colisão
+            prefix = pasta  # por ex: "001M" -> "001M_a.jpg"
+            for arquivo in os.listdir(pasta_path):
+                src_file = os.path.join(pasta_path, arquivo)
+                if not os.path.isfile(src_file):
+                    continue
+
+                dest = masculino_out if genero == "Masculino" else feminino_out 
+                processar_e_salvar(src_file, dest, prefix)
+                counts[dest] += 1
+
+    # relatório
+    print("Organização + processamento concluídos.")
+    for d in destinos:
+        print(f"  {os.path.basename(d)}: {counts[d]} imagens.")
 
 if __name__ == "__main__":
-    main()
+    # executa no diretório atual (ajuste se quiser outro)
+    base_path = os.path.expanduser(os.getcwd())
+    organizar_amostras_com_quadrado(base_path)
