@@ -21,7 +21,7 @@ transform = A.Compose([
 ])
 
 # Diretório base do YOLO
-base_dir = "dataset_yolo/train/"
+base_dir = "dataset_yolo_split/train/"
 
 # Extensões válidas
 valid_ext = (".jpg", ".jpeg", ".png", ".bmp", ".tiff")

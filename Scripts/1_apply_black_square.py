@@ -6,8 +6,8 @@ from pathlib import Path
 # --- CONFIGURAÇÕES ---
 # 1. Liste os diretórios com as imagens originais que você quer processar.
 INPUT_DIRS = [
-    "Feminino",
-    "Masculino"
+    "dataset_original/2d/2d/Amostras 2D/Feminino",
+    "dataset_original/2d/2d/Amostras 2D/Masculino"
 ]
 
 # 2. Defina o nome da pasta de saída para as imagens modificadas.
