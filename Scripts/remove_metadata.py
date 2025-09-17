@@ -81,7 +81,7 @@ def main():
         
         print(f"\n➡️  Processando diretório: '{input_path.name}'")
         
-        image_files = list(input_path.glob('*'))
+        image_files = list(input_path.rglob('*'))
         count = 0
         for image_file in image_files:
             if image_file.suffix.lower() in ['.png', '.jpg', '.jpeg', '.bmp', '.tiff']:
@@ -89,7 +89,9 @@ def main():
                 
                 if modified_image is not None:
                     # Define o caminho de salvamento e salva a imagem modificada
-                    save_path = output_class_dir / image_file.name
+                    prefix = image_file.parent.name                # nome da subpasta
+                    new_name = f"{prefix}_{image_file.name}"       # ex: pasta1_img1.jpg
+                    save_path = output_class_dir / new_name
                     cv2.imwrite(str(save_path), modified_image)
                     count += 1
         
