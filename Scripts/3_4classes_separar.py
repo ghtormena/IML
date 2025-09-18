@@ -4,11 +4,11 @@ import shutil
 # --- CONFIGURAÇÕES ---
 # 1. Defina o caminho para a pasta principal que contém os diretórios 'Masculino' e 'Feminino'.
 #    Exemplo: 'caminho/para/meu/dataset'
-INPUT_DIR_BASE = "dataset_anonimizado_padded"
+INPUT_DIR_BASE = "datasets/dataset_anonimizado_padded"
 
 # 2. Defina o nome da pasta de saída onde os novos diretórios serão criados.
 #    Exemplo: 'caminho/para/meu/dataset_organizado'
-OUTPUT_DIR_BASE = "dataset_yolo"
+OUTPUT_DIR_BASE = "datasets/dataset_yolo"
 
 # --- LÓGICA PRINCIPAL DO SCRIPT ---
 

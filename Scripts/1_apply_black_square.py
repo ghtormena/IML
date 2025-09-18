@@ -6,12 +6,12 @@ from pathlib import Path
 # --- CONFIGURAÇÕES ---
 # 1. Liste os diretórios com as imagens originais que você quer processar.
 INPUT_DIRS = [
-    "dataset_original/2d/2d/Amostras 2D/Feminino",
-    "dataset_original/2d/2d/Amostras 2D/Masculino"
+    "datasets/dataset_original/2d/2d/Amostras 2D/Feminino",
+    "datasets/dataset_original/2d/2d/Amostras 2D/Masculino"
 ]
 
 # 2. Defina o nome da pasta de saída para as imagens modificadas.
-OUTPUT_DIR = "dataset_anonimizado"
+OUTPUT_DIR = "datasets/dataset_anonimizado"
 
 # 3. Defina o tamanho do quadrado preto a ser aplicado.
 SQUARE_SIZE = 50

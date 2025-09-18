@@ -5,11 +5,11 @@ import random
 # --- CONFIGURAÇÕES ---
 # 1. Pastas de origem (contém as 4 classes).
 # Certifique-se de que este caminho está correto e as pastas existem.
-INPUT_DIR_BASE = "dataset_yolo"
+INPUT_DIR_BASE = "datasets/dataset_yolo"
 
 # 2. Defina o nome da nova pasta de saída para os conjuntos train/val/test.
 # Esta pasta será criada e não vai sobrescrever a de origem.
-OUTPUT_DIR_SPLIT = "dataset_yolo_split"
+OUTPUT_DIR_SPLIT = "datasets/dataset_yolo_split"
 
 # Proporções de divisão
 train_ratio = 0.75

@@ -1,0 +1,13 @@
+# data.yaml
+path: datasets/dataset_yolo_split  # dataset root directory
+train: train  # This should point to your training images
+val: val      # This should point to your validation images
+test: test    # This should point to your test images
+
+# Class names
+names:
+  0: Feminino_cranio
+  1: Feminino_pelve
+  2: Masculino_cranio
+  3: Masculino_pelve
+  
