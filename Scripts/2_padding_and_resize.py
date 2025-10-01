@@ -6,13 +6,13 @@ from pathlib import Path
 # --- CONFIGURAÇÕES ---
 # 1. Coloque aqui a lista com os caminhos para TODAS as suas pastas de imagens originais.
 INPUT_DIRS = [
-    "datasets/dataset_anonimizado/Feminino",
-    "datasets/dataset_anonimizado/Masculino",
+    "/home/nexus/davi/IML/datasets/novo_dataset_2d/anonimizado/Masculino",
+    "/home/nexus/davi/IML/datasets/novo_dataset_2d/anonimizado/Feminino"
     # Adicione outras pastas de classe aqui, se necessário
 ]
 
 # 2. Defina o nome da pasta de saída onde as imagens processadas serão salvas.
-OUTPUT_DIR = "datasets/dataset_anonimizado_padded"
+OUTPUT_DIR = "/home/nexus/davi/IML/datasets/novo_dataset_2d/anonimizado_padded"
 
 # 3. Defina o tamanho final desejado para as imagens.
 TARGET_SIZE = 640

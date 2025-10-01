@@ -1,5 +1,5 @@
 # data.yaml
-path: datasets/dataset_yolo_split  # dataset root directory
+path: /home/nexus/davi/IML/datasets/novo_dataset_2d/data_split2  # dataset root directory
 train: train  # This should point to your training images
 val: val      # This should point to your validation images
 test: test    # This should point to your test images

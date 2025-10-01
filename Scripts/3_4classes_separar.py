@@ -4,11 +4,11 @@ import shutil
 # --- CONFIGURAÇÕES ---
 # 1. Defina o caminho para a pasta principal que contém os diretórios 'Masculino' e 'Feminino'.
 #    Exemplo: 'caminho/para/meu/dataset'
-INPUT_DIR_BASE = "datasets/dataset_anonimizado_padded"
+INPUT_DIR_BASE = "/home/nexus/davi/IML/datasets/novo_dataset_2d/anonimizado_padded"
 
 # 2. Defina o nome da pasta de saída onde os novos diretórios serão criados.
 #    Exemplo: 'caminho/para/meu/dataset_organizado'
-OUTPUT_DIR_BASE = "datasets/dataset_yolo"
+OUTPUT_DIR_BASE = "/home/nexus/davi/IML/datasets/novo_dataset_2d/anonimizado_padded_separado"
 
 # --- LÓGICA PRINCIPAL DO SCRIPT ---
 
@@ -71,14 +71,14 @@ def organize_images():
                 
                 # Lógica para determinar o destino da imagem
                 if gender == 'Masculino':
-                    if part_identifier in ['a', 'b']:
+                    if part_identifier in ['a', 'b', 'A', 'B']:
                         destination_dir = output_dirs['Masculino_cranio']
-                    elif part_identifier == 'c':
+                    elif part_identifier in ['c', 'C']:
                         destination_dir = output_dirs['Masculino_pelve']
                 elif gender == 'Feminino':
-                    if part_identifier in ['a', 'b']:
+                    if part_identifier in ['a', 'b', 'A', 'B']:
                         destination_dir = output_dirs['Feminino_cranio']
-                    elif part_identifier == 'c':
+                    elif part_identifier in ['c', 'C']:
                         destination_dir = output_dirs['Feminino_pelve']
                 
                 # Move o arquivo se o destino foi definido

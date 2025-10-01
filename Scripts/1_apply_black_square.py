@@ -6,12 +6,12 @@ from pathlib import Path
 # --- CONFIGURAÇÕES ---
 # 1. Liste os diretórios com as imagens originais que você quer processar.
 INPUT_DIRS = [
-    "datasets/dataset_original/2d/2d/Amostras 2D/Feminino",
-    "datasets/dataset_original/2d/2d/Amostras 2D/Masculino"
+    "/home/nexus/davi/IML/datasets/novo_dataset_2d/NOVOS 2D CORRIGIDOS(TOTAL)/NOVOS 2D (TOTAL)/Feminino",
+    "/home/nexus/davi/IML/datasets/novo_dataset_2d/NOVOS 2D CORRIGIDOS(TOTAL)/NOVOS 2D (TOTAL)/Masculino"
 ]
 
 # 2. Defina o nome da pasta de saída para as imagens modificadas.
-OUTPUT_DIR = "datasets/dataset_anonimizado"
+OUTPUT_DIR = "/home/nexus/davi/IML/datasets/novo_dataset_2d/anonimizado"
 
 # 3. Defina o tamanho do quadrado preto a ser aplicado.
 SQUARE_SIZE = 50
