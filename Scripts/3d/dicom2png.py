@@ -24,6 +24,32 @@ from PIL import Image
 import pydicom
 from pydicom.pixel_data_handlers.util import apply_voi_lut
 
+# --- CONFIGURAÇÕES DO USUÁRIO ---
+# Defina seus caminhos e opções aqui
+# Substitua pelos seus caminhos reais!
+CODED_INPUT_PATH = '/home/nexus/davi/3d/3D'
+CODED_OUTPUT_PATH = '/home/nexus/davi/3d/PNG'
+
+CODED_OPTIONS = {
+    "split_by": "series",       # Como organizar: study, series, series+bodypart
+    "drop_localizer": True,     # Filtrar imagens localizadoras/scout
+    "clahe": True,              # Aplicar melhoria de contraste (requer opencv-python)
+    "frames": "all",         # Qual quadro salvar (first, middle, last, all)
+    "max_size": 1024,           # Redimensionar o lado maior (0 para desativar)
+    "workers": 4,               # Número de threads
+    "min_entropy": 1.5,         # Filtrar imagens muito escuras/uniformes
+    "drop_derived": False,
+    # ADICIONE ESTAS QUATRO LINHAS (Parâmetros de Qualidade/Filtro):
+    "min_nonblack_pct": 0.05, # Mínimo de pixels não-pretos (evita imagens totalmente pretas)
+    "min_p2p": 10,            # Mínimo contraste (Peak-to-Peak)
+    "min_var": 50,            # Mínima variância do pixel (evita imagens uniformes)
+    
+    # ADICIONE ESTA LINHA (Configuração de Cor):
+    "rgb": True,             # Se deve forçar imagens de saída para RGB (False = monocromático, se a fonte for)
+    "only_mods": "",
+}
+# --- FIM DAS CONFIGURAÇÕES DO USUÁRIO ---
+
 # ---------- util ----------
 def slugify(s: str, maxlen=64):
     if not s:
@@ -194,25 +220,62 @@ def out_subdir_for(ds, split_by: str):
     return slugify(base, maxlen=120) or "UNSORTED"
 
 # ---------- pipeline ----------
+
+from pathlib import Path  # Ensure Path is imported if you're pasting this function alone
+
+from pathlib import Path  # Ensure Path is imported at the top of your script
+
 def worker(p, rel, args, only_mods, drop_derived, subfolder_name):
     try:
+        # Tenta ler o arquivo DICOM
         ds=pydicom.dcmread(str(p), force=True)
     except Exception:
         return 0
 
+    # Checagens iniciais de validade
     if looks_like_non_image(ds): return 0
     if not modality_allowed(ds, only_mods): return 0
-    loc,der = is_localizer_or_derived(ds)
-    if args.drop_localizer and loc: return 0
-    if drop_derived and der: return 0
+    
+    # Verifica se a imagem é localizador (loc) ou derivada (der)
+    loc, der = is_localizer_or_derived(ds)
+    
+    # ----------------------------------------------------
+    # FILTRO MODIFICADO: Ignora APENAS localizadores (se drop_localizer=True)
+    #                   Processa imagens Primárias (não-DERIVED) e Derivadas.
+    # ----------------------------------------------------
+    # 1. Ignora se for localizador E o usuário pediu para ignorar localizadores
+    if args.drop_localizer and loc: 
+        return 0
+        
+    # **A LINHA DE FILTRO 'if not der' FOI REMOVIDA AQUI**
+    # Agora, se a imagem for primária (not der) e não for localizador, ela continua.
+    
+    # O filtro original 'if drop_derived and der' também é inativo
+    # pois você definiu drop_derived: False nas CODED_OPTIONS.
+    # ----------------------------------------------------
 
     try:
+        # Carrega e aplica VOI LUT/Windowing/Rescale
         arr = load_pixels(ds)
     except Exception:
         return 0
 
-    sub = out_subdir_for(ds, args.split_by)
+    # ... (o resto da função worker permanece inalterado) ...
+    sub_metadata = out_subdir_for(ds, args.split_by)
 
+    try:
+        rel_parts = p.relative_to(Path(args.input).resolve()).parts
+        
+        if len(rel_parts) >= 2:
+            path_to_keep = Path(rel_parts[0]) / rel_parts[1]
+        elif len(rel_parts) == 1:
+            path_to_keep = Path(rel_parts[0])
+        else:
+            path_to_keep = Path(".")
+            
+    except Exception:
+        path_to_keep = Path(".")
+        
     saved = 0
     for i, fr in enumerate(choose_frames(arr, args.frames)):
         u8 = to_uint8(fr)
@@ -223,36 +286,40 @@ def worker(p, rel, args, only_mods, drop_derived, subfolder_name):
         if not passes(u8, args.min_nonblack_pct, args.min_entropy, args.min_p2p, args.min_var):
             continue
 
-        # monta saída: output/subfolder_name/split_by_subfolder/
-        out_dir = Path(args.output).resolve() / subfolder_name / sub
+        out_dir = Path(args.output).resolve() / path_to_keep / sub_metadata
+        
         name = p.stem + (f"_f{i:04d}" if i>0 else "")
         save_png(u8, out_dir / f"{name}.png")
         saved += 1
     return saved
 
 def parse_args():
-    ap=argparse.ArgumentParser(description="Converte DICOM para PNG filtrando lixo e separando por estudo/série.")
-    ap.add_argument("-i","--input",required=True)
-    ap.add_argument("-o","--output",required=True)
-    ap.add_argument("--only-mods",default="")
-    ap.add_argument("--drop-localizer",action="store_true")
-    ap.add_argument("--drop-derived",action="store_true")
-    ap.add_argument("--keep-derived",action="store_true")
-    ap.add_argument("--frames",choices=["first","middle","last","all"],default="middle")
-    ap.add_argument("--rgb",action="store_true")
-    ap.add_argument("--clahe",action="store_true")
-    ap.add_argument("--max-size",type=int,default=0)
-    ap.add_argument("--keep-tree",action="store_true")  # mantido p/ compatibilidade (não afeta split-by)
-    ap.add_argument("--workers",type=int,default=os.cpu_count() or 4)
-    # filtros
-    ap.add_argument("--min-nonblack-pct",type=float,default=0.0) # Mudado de 0.01 para 0.0
-    ap.add_argument("--min-entropy",type=float,default=0.0)     # Mudado de 1.5 para 0.0
-    ap.add_argument("--min-p2p",type=int,default=0)             # Mudado de 15 para 0
-    ap.add_argument("--min-var",type=float,default=0.0)  
-    # NOVO:
-    ap.add_argument("--split-by",choices=["study","series","series+bodypart"],default="series",
-                    help="Como organizar subpastas de saída.")
-    return ap.parse_args()
+    # Isso simula a leitura do argparse, mas usa os valores CODED_OPTIONS
+    class Args:
+        pass
+    
+    args = Args()
+    
+    # Define as propriedades obrigatórias (Input/Output)
+    args.input = CODED_INPUT_PATH
+    args.output = CODED_OUTPUT_PATH
+    
+    # Define as demais propriedades usando CODED_OPTIONS
+    for key, value in CODED_OPTIONS.items():
+        setattr(args, key, value)
+        
+    # Adiciona as opções que não estão no CODED_OPTIONS mas são necessárias (ou inversas)
+    args.keep_tree = False
+    # Garante que 'keep_derived' seja o oposto de 'drop_derived' ou True
+    args.keep_derived = not args.drop_derived
+    
+    # Se você quiser que o script imprima os valores que está usando:
+    # print("[INFO] Usando configurações codificadas:")
+    # for attr in sorted(dir(args)):
+    #     if not attr.startswith('__') and not callable(getattr(args, attr)):
+    #         print(f"  {attr}: {getattr(args, attr)}")
+            
+    return args
 
 def main():
     args=parse_args()
