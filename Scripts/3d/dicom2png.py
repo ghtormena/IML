@@ -11,6 +11,7 @@ Novidades:
     series+bodypart: idem series, adicionando __<BodyPart>
 - Nomes "slug" seguros (sem espaços/especiais).
 - Mantém todas as opções anteriores (--only-mods, --frames, --clahe, etc).
+- **NOVO:** Filtro para apagar subdiretórios com mais de 150 imagens.
 
 Requisitos:
   pip install pydicom pillow numpy
@@ -23,6 +24,7 @@ import numpy as np
 from PIL import Image
 import pydicom
 from pydicom.pixel_data_handlers.util import apply_voi_lut
+import shutil # Adicionado para exclusão de diretórios
 
 # --- CONFIGURAÇÕES DO USUÁRIO ---
 # Defina seus caminhos e opções aqui
@@ -31,7 +33,8 @@ CODED_INPUT_PATH = '/home/nexus/davi/3d/3D'
 CODED_OUTPUT_PATH = '/home/nexus/davi/3d/PNG'
 
 CODED_OPTIONS = {
-    "split_by": "series",       # Como organizar: study, series, series+bodypart
+    # MUDANÇA: split_by para incluir BodyPart
+    "split_by": "series+bodypart", # Como organizar: study, series, series+bodypart
     "drop_localizer": True,     # Filtrar imagens localizadoras/scout
     "clahe": True,              # Aplicar melhoria de contraste (requer opencv-python)
     "frames": "all",         # Qual quadro salvar (first, middle, last, all)
@@ -47,6 +50,9 @@ CODED_OPTIONS = {
     # ADICIONE ESTA LINHA (Configuração de Cor):
     "rgb": True,             # Se deve forçar imagens de saída para RGB (False = monocromático, se a fonte for)
     "only_mods": "",
+    
+    # NOVO: Limite de imagens para exclusão de subdiretório
+    "max_images_per_series": 200, 
 }
 # --- FIM DAS CONFIGURAÇÕES DO USUÁRIO ---
 
@@ -214,6 +220,7 @@ def out_subdir_for(ds, split_by: str):
         # <StudyDate>__S<SeriesNum>__<SeriesDesc>__<SeriesUID6>
         base = f"{date_s}__{snum_s}__{srsdesc}__{seuid6}"
     elif split_by == "series+bodypart":
+        # <StudyDate>__S<SeriesNum>__<SeriesDesc>__<BodyPart>__<SeriesUID6>
         base = f"{date_s}__{snum_s}__{srsdesc}__{body_s}__{seuid6}"
     else:
         base = f"{date_s}__{snum_s}__{srsdesc}__{seuid6}"
@@ -225,47 +232,39 @@ from pathlib import Path  # Ensure Path is imported if you're pasting this funct
 
 from pathlib import Path  # Ensure Path is imported at the top of your script
 
-def worker(p, rel, args, only_mods, drop_derived, subfolder_name):
+def worker(p, rel, args, only_mods, drop_derived):
+    """
+    Processa um único arquivo DICOM e salva os PNGs.
+    Retorna (sub_metadata, count) onde count é o número de imagens salvas.
+    """
     try:
         # Tenta ler o arquivo DICOM
         ds=pydicom.dcmread(str(p), force=True)
     except Exception:
-        return 0
+        return None, 0
 
     # Checagens iniciais de validade
-    if looks_like_non_image(ds): return 0
-    if not modality_allowed(ds, only_mods): return 0
+    if looks_like_non_image(ds): return None, 0
+    if not modality_allowed(ds, only_mods): return None, 0
     
-    # Verifica se a imagem é localizador (loc) ou derivada (der)
     loc, der = is_localizer_or_derived(ds)
     
-    # ----------------------------------------------------
-    # FILTRO MODIFICADO: Ignora APENAS localizadores (se drop_localizer=True)
-    #                   Processa imagens Primárias (não-DERIVED) e Derivadas.
-    # ----------------------------------------------------
-    # 1. Ignora se for localizador E o usuário pediu para ignorar localizadores
     if args.drop_localizer and loc: 
-        return 0
-        
-    # **A LINHA DE FILTRO 'if not der' FOI REMOVIDA AQUI**
-    # Agora, se a imagem for primária (not der) e não for localizador, ela continua.
-    
-    # O filtro original 'if drop_derived and der' também é inativo
-    # pois você definiu drop_derived: False nas CODED_OPTIONS.
-    # ----------------------------------------------------
+        return None, 0
 
     try:
         # Carrega e aplica VOI LUT/Windowing/Rescale
         arr = load_pixels(ds)
     except Exception:
-        return 0
+        return None, 0
 
-    # ... (o resto da função worker permanece inalterado) ...
     sub_metadata = out_subdir_for(ds, args.split_by)
 
     try:
         rel_parts = p.relative_to(Path(args.input).resolve()).parts
         
+        # O Path a ser mantido deve ser a pasta imediatamente antes dos arquivos DICOM,
+        # que é onde esperamos a informação do paciente/estudo (ex: 'Feminino/26F')
         if len(rel_parts) >= 2:
             path_to_keep = Path(rel_parts[0]) / rel_parts[1]
         elif len(rel_parts) == 1:
@@ -277,6 +276,8 @@ def worker(p, rel, args, only_mods, drop_derived, subfolder_name):
         path_to_keep = Path(".")
         
     saved = 0
+    out_dir = Path(args.output).resolve() / path_to_keep / sub_metadata
+    
     for i, fr in enumerate(choose_frames(arr, args.frames)):
         u8 = to_uint8(fr)
         u8 = ensure_rgb(u8, args.rgb)
@@ -286,12 +287,43 @@ def worker(p, rel, args, only_mods, drop_derived, subfolder_name):
         if not passes(u8, args.min_nonblack_pct, args.min_entropy, args.min_p2p, args.min_var):
             continue
 
-        out_dir = Path(args.output).resolve() / path_to_keep / sub_metadata
-        
         name = p.stem + (f"_f{i:04d}" if i>0 else "")
         save_png(u8, out_dir / f"{name}.png")
         saved += 1
-    return saved
+        
+    # Retorna o sub_metadata (o nome da pasta da série/estudo) e a contagem
+    return out_dir, saved
+
+def cleanup_large_directories(output_root: Path, max_count: int):
+    """
+    Percorre o diretório de saída e apaga subdiretórios que contêm mais de 'max_count'
+    arquivos PNG.
+    """
+    deleted_dirs = 0
+    
+    # Busca por subdiretórios que contêm arquivos .png
+    # A profundidade é limitada à pasta da série (que é o subdiretório mais interno
+    # criado pelo script, ex: .../Feminino/26F/20250906_S1008_NA_HEAD_006042/)
+    
+    # Itera sobre todas as pastas no diretório de saída
+    for patient_dir in output_root.iterdir():
+        if patient_dir.is_dir():
+            for study_dir in patient_dir.iterdir():
+                if study_dir.is_dir():
+                    for series_dir in study_dir.iterdir():
+                        if series_dir.is_dir():
+                            png_count = len(list(series_dir.glob("*.png")))
+                            
+                            if png_count > max_count:
+                                print(f"[FILTRO] Excluindo: '{series_dir.name}' ({png_count} imagens > {max_count} limit)")
+                                try:
+                                    shutil.rmtree(series_dir)
+                                    deleted_dirs += 1
+                                except Exception as e:
+                                    print(f"[ERRO] Falha ao excluir {series_dir}: {e}", file=sys.stderr)
+                                    
+    print(f"[INFO] Diretórios excluídos pelo filtro de contagem: {deleted_dirs}")
+    return deleted_dirs
 
 def parse_args():
     # Isso simula a leitura do argparse, mas usa os valores CODED_OPTIONS
@@ -310,14 +342,7 @@ def parse_args():
         
     # Adiciona as opções que não estão no CODED_OPTIONS mas são necessárias (ou inversas)
     args.keep_tree = False
-    # Garante que 'keep_derived' seja o oposto de 'drop_derived' ou True
     args.keep_derived = not args.drop_derived
-    
-    # Se você quiser que o script imprima os valores que está usando:
-    # print("[INFO] Usando configurações codificadas:")
-    # for attr in sorted(dir(args)):
-    #     if not attr.startswith('__') and not callable(getattr(args, attr)):
-    #         print(f"  {attr}: {getattr(args, attr)}")
             
     return args
 
@@ -339,21 +364,38 @@ def main():
         print(f"[ERRO] Nenhum subfolder encontrado em {in_root}", file=sys.stderr)
         sys.exit(1)
 
-    total = 0
+    total_saved = 0
+    # Dicionário para rastrear a contagem de imagens por diretório de saída
+    series_counts = {}
+    
     for subfolder in subfolders:
         files = [p for p in subfolder.rglob("*") if p.is_file()]
         print(f"[INFO] {len(files)} candidatos encontrados em {subfolder}")
+        
         def pack(p):
             try:
                 rel = p.parent.relative_to(subfolder) if args.keep_tree else Path(".")
             except Exception:
                 rel = Path(".")
-            return worker(p, rel, args, only_mods, drop_derived, subfolder.name)
+            return worker(p, rel, args, only_mods, drop_derived)
+            
         with cf.ThreadPoolExecutor(max_workers=max(1,int(args.workers))) as ex:
-            for n in ex.map(pack, files):
-                total += int(n or 0)
-
-    print(f"[INFO] Imagens salvas: {total}")
+            # ex.map retorna (out_dir, count)
+            for out_dir, n in ex.map(pack, files):
+                if n > 0:
+                    total_saved += n
+                    # Não precisamos mais rastrear a contagem por série, pois a
+                    # contagem será feita no disco pela função cleanup_large_directories
+                    pass
+    
+    print(f"[INFO] Imagens salvas (antes da limpeza): {total_saved}")
+    
+    # ----------------------------------------------------
+    # NOVO PASSO: Limpeza de diretórios grandes
+    # ----------------------------------------------------
+    print(f"[INFO] Executando filtro de limpeza: excluindo subdiretórios com mais de {args.max_images_per_series} imagens...")
+    cleanup_large_directories(out_root, args.max_images_per_series)
+    
     print("[INFO] Concluído.")
 
 if __name__=="__main__":
