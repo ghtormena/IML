@@ -1,0 +1,289 @@
+Scripts/3d/PNG/Feminino/1F/Crânio/51351195.png,
+imagens/All slices/Feminino/1F/Pelve/51357289.png,
+Scripts/3d/PNG/Feminino/2F/Crânio/51835411.png,
+Scripts/3d/PNG/Feminino/2F/Pelve/51840361.png,
+Scripts/3d/PNG/Feminino/3F/Crânio/60977734.png,
+Scripts/3d/PNG/Feminino/3F/Pelve/60983553.png,
+Scripts/3d/PNG/Feminino/4F/Crânio/77345718.png,
+Scripts/3d/PNG/Feminino/4F/Pelve/77349249.png,
+Scripts/3d/PNG/Feminino/6F/Crânio/23071667.png,
+Scripts/3d/PNG/Feminino/6F/Pelve/23077002.png,
+Scripts/3d/PNG/Feminino/8F/Crânio/25411694.png,
+Scripts/3d/PNG/Feminino/8F/Pelve/25406623.png,
+Scripts/3d/PNG/Feminino/9F/Crânio/26314833.png,
+Scripts/3d/PNG/Feminino/9F/Crânio_2/40435786.png,
+Scripts/3d/PNG/Feminino/9F/Pelve/26320762.png,
+Scripts/3d/PNG/Feminino/9F/Pelve_2/40441726.png,
+Scripts/3d/PNG/Feminino/10F/Crânio/65688285.png,
+Scripts/3d/PNG/Feminino/10F/Pelve/65692894.png,
+Scripts/3d/PNG/Feminino/12F/Crânio/37283317.png,
+Scripts/3d/PNG/Feminino/12F/Pelve/37289169.png,
+Scripts/3d/PNG/Feminino/13F/Crânio/42945496.png,
+Scripts/3d/PNG/Feminino/13F/Pelve/42951326.png,
+Scripts/3d/PNG/Feminino/14F/Crânio/21414902.png,
+Scripts/3d/PNG/Feminino/14F/Pelve/21420402.png,
+Scripts/3d/PNG/Feminino/15F/Crânio/33644059.png,
+Scripts/3d/PNG/Feminino/15F/Pelve/33648855.png,
+Scripts/3d/PNG/Feminino/17F/Crânio/12307431.png,
+Scripts/3d/PNG/Feminino/17F/Pelve/12312689.png,
+Scripts/3d/PNG/Feminino/18F/Crânio/75144833.png,
+Scripts/3d/PNG/Feminino/18F/Pelve/75149244.png,
+Scripts/3d/PNG/Feminino/19F/Crânio/40372604.png,
+Scripts/3d/PNG/Feminino/19F/Pelve/40378456.png,
+Scripts/3d/PNG/Feminino/20F/Crânio/31009635.png,
+Scripts/3d/PNG/Feminino/20F/Pelve/31013012.png,
+Scripts/3d/PNG/Feminino/21F/Crânio/35475258.png,
+Scripts/3d/PNG/Feminino/21F/Crânio_2/35841480.png,
+Scripts/3d/PNG/Feminino/21F/Pelve/35846562.png,
+Scripts/3d/PNG/Feminino/21F/Pelve_2/35480340.png,
+Scripts/3d/PNG/Feminino/22F/Crânio/40913161.png,
+Scripts/3d/PNG/Feminino/22F/Pelve/40918837.png,
+Scripts/3d/PNG/Feminino/23F/Crânio/24588860.png,
+Scripts/3d/PNG/Feminino/23F/Pelve/24591082.png
+Scripts/3d/PNG/Feminino/24F/Crânio/28739323.png
+Scripts/3d/PNG/Feminino/24F/Pelve/29387788.png
+Scripts/3d/PNG/Feminino/25F/Crânio/35416497.png
+Scripts/3d/PNG/Feminino/25F/Pelve/35420094.png
+Scripts/3d/PNG/Feminino/26F/Crânio/40878629.png
+Scripts/3d/PNG/Feminino/26F/Crânio_2/55732268.png
+Scripts/3d/PNG/Feminino/26F/Pelve/40883524.png
+Scripts/3d/PNG/Feminino/26F/Pelve_2/55736426.png
+Scripts/3d/PNG/Feminino/27F/Crânio/61639375.png
+Scripts/3d/PNG/Feminino/27F/Pelve/61644897.png
+Scripts/3d/PNG/Feminino/28F/Crânio/67696831.png
+Scripts/3d/PNG/Feminino/28F/Pelve/67695071.png
+Scripts/3d/PNG/Feminino/29F/Crânio/75391697.png
+Scripts/3d/PNG/Feminino/29F/Pelve/75396746.png
+Scripts/3d/PNG/Feminino/30F/Crânio/80280642.png
+Scripts/3d/PNG/Feminino/30F/Pelve/80285812.png
+Scripts/3d/PNG/Feminino/31F/Crânio/86732343.png
+Scripts/3d/PNG/Feminino/31F/Pelve/86731397.png
+Scripts/3d/PNG/Feminino/32F/Crânio/89915241.png
+Scripts/3d/PNG/Feminino/33F/Crânio/16734286.png
+Scripts/3d/PNG/Feminino/33F/Pelve/16738499.png
+Scripts/3d/PNG/Feminino/34F/Crânio/24834152.png
+Scripts/3d/PNG/Feminino/34F/Pelve/24839982.png
+Scripts/3d/PNG/Feminino/35F/Pelve/28428121.png
+Scripts/3d/PNG/Feminino/36F/Crânio/35716755.png
+Scripts/3d/PNG/Feminino/36F/Pelve/35721298.png
+Scripts/3d/PNG/Feminino/37F/Crânio/66842622.png
+Scripts/3d/PNG/Feminino/37F/Pelve/66848111.png
+Scripts/3d/PNG/Feminino/38F/Crânio/89492822.png
+Scripts/3d/PNG/Feminino/38F/Pelve/89498652.png
+Scripts/3d/PNG/Feminino/39F/Crânio/21576546.png
+Scripts/3d/PNG/Feminino/39F/Pelve/21580506.png
+Scripts/3d/PNG/Feminino/40F/Crânio/28153532.png
+Scripts/3d/PNG/Feminino/40F/Pelve/28158724.png
+Scripts/3d/PNG/Feminino/41F/Crânio/31453622.png
+Scripts/3d/PNG/Feminino/41F/Pelve/31458484.png
+Scripts/3d/PNG/Feminino/42F/Crânio/34961865.png
+Scripts/3d/PNG/Feminino/42F/Pelve/34967409.png
+Scripts/3d/PNG/Masculino/1M/Crânio/19613672.png
+Scripts/3d/PNG/Masculino/1M/Pelve/19614717.png
+Scripts/3d/PNG/Masculino/2M/Crânio/40807310.png
+Scripts/3d/PNG/Masculino/2M/Pelve/40806804.png
+Scripts/3d/PNG/Masculino/3M/Crânio/57728750.png
+Scripts/3d/PNG/Masculino/3M/Pelve/57729850.png
+Scripts/3d/PNG/Masculino/4M/Crânio/71182860.png
+Scripts/3d/PNG/Masculino/4M/Pelve/71182299.png
+Scripts/3d/PNG/Masculino/5M/Crânio/78927874.png
+Scripts/3d/PNG/Masculino/5M/Pelve/78933517.png
+Scripts/3d/PNG/Masculino/6M/Crânio/78981708.png
+Scripts/3d/PNG/Masculino/6M/Pelve/78987406.png
+Scripts/3d/PNG/Masculino/7M/Crânio/21982557.png
+Scripts/3d/PNG/Masculino/7M/Pelve/21986264.png
+Scripts/3d/PNG/Masculino/8M/Crânio/36142848.png
+Scripts/3d/PNG/Masculino/8M/Pelve/36148293.png
+Scripts/3d/PNG/Masculino/9M/Crânio/68304651.png
+Scripts/3d/PNG/Masculino/9M/Pelve/68310558.png
+Scripts/3d/PNG/Masculino/9M/Pelve/68310558.png
+Scripts/3d/PNG/Masculino/10M A/Crânio/15673826.png
+Scripts/3d/PNG/Masculino/10M A/Pelve/15675454.png
+Scripts/3d/PNG/Masculino/10M B/Crânio/84538815.png
+Scripts/3d/PNG/Masculino/10M B/Pelve/84545481.png
+Scripts/3d/PNG/Masculino/11F/Crânio/19592435.png
+Scripts/3d/PNG/Masculino/11F/Pelve/19588365.png
+Scripts/3d/PNG/Masculino/12M/Crânio/78411402.png
+Scripts/3d/PNG/Masculino/12M/Pelve/78411732.png
+Scripts/3d/PNG/Masculino/13M/Crânio/88615846.png
+Scripts/3d/PNG/Masculino/13M/Pelve/88617287.png
+Scripts/3d/PNG/Masculino/14M/Crânio/20100923.png
+Scripts/3d/PNG/Masculino/14M/Pelve/20101858.png
+Scripts/3d/PNG/Masculino/15M/Crânio/32576616.png
+Scripts/3d/PNG/Masculino/15M/Pelve/32577430.png
+Scripts/3d/PNG/Masculino/16M/Crânio/48660815.png
+Scripts/3d/PNG/Masculino/16M/Pelve/48662300.png
+Scripts/3d/PNG/Masculino/17M/Crânio/59251981.png
+Scripts/3d/PNG/Masculino/17M/Pelve/59256656.png
+Scripts/3d/PNG/Masculino/18M/Crânio/68937555.png
+Scripts/3d/PNG/Masculino/18M/Pelve/68938787.png
+Scripts/3d/PNG/Masculino/19M/Crânio/75965908.png
+Scripts/3d/PNG/Masculino/19M/Pelve/75967041.png
+Scripts/3d/PNG/Masculino/20M/Crânio/19766375.png
+Scripts/3d/PNG/Masculino/20M/Crânio_2/83271457.png
+Scripts/3d/PNG/Masculino/20M/Pelve/83272205.png
+Scripts/3d/PNG/Masculino/20M/Pelve_2/19770181.png
+Scripts/3d/PNG/Masculino/21M/Crânio/29967782.png
+Scripts/3d/PNG/Masculino/21M/Pelve/29967331.png
+Scripts/3d/PNG/Masculino/22M/Crânio/87329967.png
+Scripts/3d/PNG/Masculino/22M/Pelve/87335159.png
+Scripts/3d/PNG/Masculino/23M/Crânio/16733670.png
+Scripts/3d/PNG/Masculino/23M/Pelve/16738301.png
+imagens/All slices/Masculino/24M/Crânio/62564257.png
+imagens/All slices/Masculino/24M/Pelve/62570703.png
+imagens/All slices/Masculino/25M/Crânio/50675180.png
+imagens/All slices/Masculino/25M/Pelve/50668591.png
+imagens/All slices/Masculino/26M/Crânio/57187918.png
+imagens/All slices/Masculino/26M/Pelve/57182506.png
+imagens/All slices/Masculino/27M/Crânio/63152676.png
+imagens/All slices/Masculino/27M/Pelve/63157516.png
+imagens/All slices/Masculino/28M/Crânio/63465493.png
+imagens/All slices/Masculino/28M/Pelve/63470861.png
+imagens/All slices/Masculino/29M/Crânio/59580921.png
+imagens/All slices/Masculino/29M/Pelve/59586542.png
+imagens/All slices/Masculino/31M/Crânio/66621701.png
+imagens/All slices/Masculino/31M/Pelve/66627190.png
+imagens/All slices/Masculino/33M/Crânio/64739440.png
+imagens/All slices/Masculino/33M/Pelve/64745347.png
+imagens/All slices/Masculino/34M/Crânio/70018043.png
+imagens/All slices/Masculino/34M/Pelve/70023125.png
+imagens/All slices/Masculino/35M/Crânio/71401680.png
+imagens/All slices/Masculino/35M/Pelve/71404155.png
+imagens/All slices/Masculino/36M/Crânio/76577157.png
+imagens/All slices/Masculino/36M/Pelve/76582294.png
+imagens/All slices/Masculino/37M/Crânio/81763466.png
+imagens/All slices/Masculino/37M/Pelve/81773190.png
+imagens/All slices/Masculino/38M/Crânio/88162479.png
+imagens/All slices/Masculino/38M/Pelve/88167979.png
+imagens/All slices/Masculino/39M/Crânio/14927129.png
+imagens/All slices/Masculino/39M/Pelve/14926183.png
+imagens/All slices/Masculino/40M/Crânio/18938614.png
+imagens/All slices/Masculino/40M/Pelve/18942805.png
+imagens/All slices/Masculino/41M/Crânio/30122102.png
+imagens/All slices/Masculino/41M/Pelve/30128328.png
+imagens/All slices/Masculino/42M/Crânio/34430084.png
+imagens/All slices/Masculino/42M/Pelve/34434176.png
+imagens/All slices/Masculino/43M/Crânio/42792244.png
+imagens/All slices/Masculino/43M/Pelve/42796908.png
+imagens/All slices/Masculino/44M/Crânio/46867240.png
+imagens/All slices/Masculino/44M/Pelve/46872696.png
+imagens/All slices/Masculino/45M/Crânio/54643137.png
+imagens/All slices/Masculino/45M/Pelve/54649979.png
+imagens/All slices/Masculino/46M/Crânio/57621721.png
+imagens/All slices/Masculino/46M/Pelve/57626913.png
+imagens/All slices/Masculino/47M/Crânio/61401452.png
+imagens/All slices/Masculino/47M/Pelve/61406545.png
+imagens/All slices/Masculino/48M/Crânio/67349592.png
+imagens/All slices/Masculino/48M/Pelve/67354883.png
+imagens/All slices/Masculino/49M/Crânio/76149601.png
+imagens/All slices/Masculino/49M/Pelve/76153165.png
+imagens/All slices/Masculino/50M/Crânio/81079028.png
+imagens/All slices/Masculino/50M/Pelve/81083142.png
+imagens/All slices/Masculino/51M/Crânio_2/55306251.png
+imagens/All slices/Masculino/51M/Crânio/49175088.png
+imagens/All slices/Masculino/51M/Pelve/49180280.png
+imagens/All slices/Masculino/52M/Crânio/55308165.png
+imagens/All slices/Masculino/52M/Pelve/55312257.png
+imagens/All slices/Masculino/53M/Crânio/80209653.png
+imagens/All slices/Masculino/53M/Pelve/80204428.png
+imagens/All slices/Masculino/54M/Crânio/85507874.png
+imagens/All slices/Masculino/54M/Pelve/85514221.png
+imagens/All slices/Masculino/55M/Crânio/12521555.png
+imagens/All slices/Masculino/55M/Pelve/12526395.png
+imagens/All slices/Masculino/56M/Crânio/25828252.png
+imagens/All slices/Masculino/56M/Pelve/25832443.png
+imagens/All slices/Masculino/57M/Crânio/31209397.png
+imagens/All slices/Masculino/57M/Pelve/31213148.png
+imagens/All slices/Masculino/58M/Crânio/50058596.png
+imagens/All slices/Masculino/58M/Pelve/50062501.png
+imagens/All slices/Masculino/59M/Crânio/47748384.png
+imagens/All slices/Masculino/59M/Pelve/47754203.png
+imagens/All slices/Masculino/60M/Crânio/59141366.png
+imagens/All slices/Masculino/60M/Pelve/59145986.png
+imagens/All slices/Masculino/61M/Crânio/65135696.png
+imagens/All slices/Masculino/61M/Pelve/65141240.png
+imagens/All slices/Masculino/62M/Crânio/73676535.png
+imagens/All slices/Masculino/62M/Pelve/73677459.png
+imagens/All slices/Masculino/63M/Crânio/81041812.png
+imagens/All slices/Masculino/63M/Pelve/81046025.png
+imagens/All slices/Masculino/64M/Crânio/47680011.png
+imagens/All slices/Masculino/64M/Pelve/47685533.png
+imagens/All slices/Masculino/65M/Crânio/52089578.png
+imagens/All slices/Masculino/65M/Pelve/52094440.png
+imagens/All slices/Masculino/66M/Crânio/56291708.png
+imagens/All slices/Masculino/66M/Pelve/56296262.png
+imagens/All slices/Masculino/67M/Crânio/60602945.png
+imagens/All slices/Masculino/67M/Pelve/60608291.png
+imagens/All slices/Masculino/68M/Crânio/66655761.png
+imagens/All slices/Masculino/68M/Pelve/66661591.png
+imagens/All slices/Masculino/69M/Crânio/72993603.png
+imagens/All slices/Masculino/69M/Pelve/72998795.png
+imagens/All slices/Masculino/70M/Crânio/77928077.png
+imagens/All slices/Masculino/70M/Pelve/77933478.png
+imagens/All slices/Masculino/71M/Crânio/83261998.png
+imagens/All slices/Masculino/71M/Pelve/83265419.png
+imagens/All slices/Masculino/72M/Crânio/86914079.png
+imagens/All slices/Masculino/72M/Pelve/86919524.png
+imagens/All slices/Masculino/73M/Crânio/16735771.png
+imagens/All slices/Masculino/74M/Crânio/22379144.png
+imagens/All slices/Masculino/74M/Pelve/22383247.png
+imagens/All slices/Masculino/75M/Crânio/62482324.png
+imagens/All slices/Masculino/75M/Pelve/62487252.png
+imagens/All slices/Masculino/76M/Crânio/65854515.png
+imagens/All slices/Masculino/76M/Pelve/65859212.png
+imagens/All slices/Masculino/77M/Crânio/71843291.png
+imagens/All slices/Masculino/77M/Pelve/71847537.png
+imagens/All slices/Masculino/78M/Crânio/79208876.png
+imagens/All slices/Masculino/78M/Pelve/79213639.png
+imagens/All slices/Masculino/79M/Crânio/83076962.png
+imagens/All slices/Masculino/79M/Pelve/83082275.png
+imagens/All slices/Masculino/80M/Crânio/85812356.png
+imagens/All slices/Masculino/81M/Crânio/14395029.png
+imagens/All slices/Masculino/81M/Pelve/14399704.png
+imagens/All slices/Masculino/82M/Crânio/16890101.png
+imagens/All slices/Masculino/82M/Pelve/16894578.png
+imagens/All slices/Masculino/83M/Crânio/22120281.png
+imagens/All slices/Masculino/83M/Pelve/22124208.png
+imagens/All slices/Masculino/84M/Crânio/42860242.png
+imagens/All slices/Masculino/85M/Crânio/48505122.png
+imagens/All slices/Masculino/85M/Pelve/48510886.png
+imagens/All slices/Masculino/86M/Crânio/54236200.png
+imagens/All slices/Masculino/86M/Pelve/54242228.png
+imagens/All slices/Masculino/87M/Crânio/60888136.png
+imagens/All slices/Masculino/87M/Pelve/60892690.png
+imagens/All slices/Masculino/89M/Crânio/31779703.png
+imagens/All slices/Masculino/89M/Pelve/31786963.png
+imagens/All slices/Masculino/90M/Crânio/38476718.png
+imagens/All slices/Masculino/90M/Pelve/38482548.png
+imagens/All slices/Masculino/91M/Crânio/45340831.png
+imagens/All slices/Masculino/91M/Pelve/45345891.png
+imagens/All slices/Masculino/92M/Crânio/50062083.png
+imagens/All slices/Masculino/92M/Pelve/50067055.png
+imagens/All slices/Masculino/93M/Crânio/54527815.png
+imagens/All slices/Masculino/93M/Pelve/54532083.png
+imagens/All slices/Masculino/94M/Crânio/62141188.png
+imagens/All slices/Masculino/94M/Pelve/62144961.png
+imagens/All slices/Masculino/95M/Crânio/66205593.png
+imagens/All slices/Masculino/95M/Pelve/66211412.png
+imagens/All slices/Masculino/96M/Crânio/81002814.png
+imagens/All slices/Masculino/96M/Pelve/81006708.png
+imagens/All slices/Masculino/97M/Crânio/80325281.png
+imagens/All slices/Masculino/97M/Pelve/80330759.png
+imagens/All slices/Masculino/98M/Crânio/29265990.png
+imagens/All slices/Masculino/98M/Pelve/29272084.png
+imagens/All slices/Masculino/99M/Crânio/38121724.png
+imagens/All slices/Masculino/99M/Pelve/38126168.png
+imagens/All slices/Masculino/100M/Crânio/41552268.png
+imagens/All slices/Masculino/100M/Pelve/41556976.png
+imagens/All slices/Masculino/101M/Crânio/45864242.png
+imagens/All slices/Masculino/101M/Pelve/45869379.png
+imagens/All slices/Masculino/102M/Crânio/51054995.png
+imagens/All slices/Masculino/102M/Pelve/51060924.png
+imagens/All slices/Masculino/103M/Crânio/59609130.png
+imagens/All slices/Masculino/103M/Pelve/59614278.png
+imagens/All slices/Masculino/104M/Crânio/66210344.png
+imagens/All slices/Masculino/104M/Pelve/66216020.png
+imagens/All slices/Masculino/105M/Crânio/76687145.png
+imagens/All slices/Masculino/105M/Pelve/76693129.png
+imagens/All slices/Masculino/106M/Crânio/81877909.png
+imagens/All slices/Masculino/106M/Pelve/81883046.png
